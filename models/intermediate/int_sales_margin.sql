@@ -1,6 +1,5 @@
 
     SELECT 
-
     gs.orders_id,
     gs.date_date,
     gs.revenue,
