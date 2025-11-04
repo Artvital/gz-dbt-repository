@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+   - name: raw
+     description: the dataset for greenwez's valuable data
+     schema: gz_raw_data
+     tables:
+       - name: sales
+         description: sales data for greenweez
+         identifier: raw_gz_sales
+       - name: product
+         description: product data for greenweez
+         identifier: raw_gz_product
+       - name: ship
+         description: shipment data for greenweez
+         identifier: rw_gz_ship
