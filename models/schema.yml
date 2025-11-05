@@ -5,7 +5,7 @@ sources:
     description: the dataset for greenwez's valuable data
     schema: gz_raw_data
     tables:
-    
+
       - name: adwords
         description: adwords campaign for greenweez
         identifier: raw_gz_adwords
@@ -156,6 +156,52 @@ sources:
             description: the shipment cost of the shipment, shipping_fee minus logcost minus ship_cost will give the marginal cost
 
 models:
+  - name: models/intermediate/int_campaign_day.sql
+    description: all 4 Greenweez ads campaigns surveyed per day
+    tests:
+      - unique:
+          column_name: "(date_date || '-' || campaign_key)"
+      - not_null:
+          column_name: "(date_date || '-' || campaign_key)"
+    columns:
+      - name: date_date
+        description: date of the campaign, PK
+      - name: paid_source
+        description: name of the campaign source
+      - name: campaign_key
+        description: campaign ID number, PK
+      - name: campaign_name
+        description: campaign name
+      - name: ads_cost
+        description: cost of the campaign
+      - name: impression
+        description: number of impressions
+      - name: click
+        description: number of clicks
+
+  - name: models/intermediate/int_campaigns.sql
+    description: model containing all 4 Greenweez ads campaigns
+    tests:
+      - unique:
+          column_name: "(date_date || '-' || campaign_key)"
+      - not_null:
+          column_name: "(date_date || '-' || campaign_key)"
+    columns:
+      - name: date_date
+        description: date of the campaign, PK
+      - name: paid_source
+        description: name of the campaign source
+      - name: campaign_key
+        description: campaign ID number, PK
+      - name: camPGN_name
+        description: campaign name
+      - name: ads_cost
+        description: cost of the campaign
+      - name: impression
+        description: number of impressions
+      - name: click
+        description: number of clicks
+
   - name: models/intermediate/int_sales_margin.sql
     description: sales margin calculation
     tests:
