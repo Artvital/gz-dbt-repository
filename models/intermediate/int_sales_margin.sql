@@ -5,7 +5,8 @@
     gs.revenue,
     gs.quantity,
     ROUND(gp.purchase_price * gs.quantity, 2) AS purchase_cost,
-    ROUND(gs.revenue - (gp.purchase_price * gs.quantity), 2) AS margin
+    ROUND(gs.revenue - (gp.purchase_price * gs.quantity), 2) AS margin,
+    {{ margin_percent('gs.revenue', 'gp.purchase_price') }} AS margin_percent
     FROM {{ ref('stg_raw__sales') }} gs
     LEFT JOIN {{ ref('stg_raw__product') }} gp
     ON gs.product_id = gp.products_id 

@@ -1,6 +1,7 @@
 SELECT
     cd.date_date,
     (fd.operational_margin - cd.ads_cost) AS ads_margin,
+    fd.average_basket,
     fd.operational_margin,
     cd.ads_cost,
     cd.impression AS ads_impression,
