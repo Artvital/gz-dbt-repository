@@ -5,6 +5,107 @@ sources:
     description: the dataset for greenwez's valuable data
     schema: gz_raw_data
     tables:
+    
+      - name: adwords
+        description: adwords campaign for greenweez
+        identifier: raw_gz_adwords
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        freshness:
+          warn_after: { count: 90, period: day }
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
+        columns:
+          - name: date_date
+            description: date of the campaign, PK
+          - name: paid_source
+            description: name of the campaign source
+          - name: campaign_key
+            description: campaign ID number, PK
+          - name: camPGN_name
+            description: campaign name
+          - name: ads_cost
+            description: cost of the campaign
+          - name: impression
+            description: number of impressions
+          - name: click
+            description: number of clicks
+
+      - name: bing
+        description: bing campaign for greenweez
+        identifier: raw_gz_bing
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        freshness:
+          warn_after: { count: 90, period: day }
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
+        columns:
+          - name: date_date
+            description: date of the campaign, PK
+          - name: paid_source
+            description: name of the campaign source
+          - name: campaign_key
+            description: campaign ID number, PK
+          - name: camPGN_name
+            description: campaign name
+          - name: ads_cost
+            description: cost of the campaign
+          - name: impression
+            description: number of impressions
+          - name: click
+            description: number of clicks
+
+      - name: criteo
+        description: criteo campaign for greenweez
+        identifier: raw_gz_criteo
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        freshness:
+          warn_after: { count: 90, period: day }
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
+        columns:
+          - name: date_date
+            description: date of the campaign, PK
+          - name: paid_source
+            description: name of the campaign source
+          - name: campaign_key
+            description: campaign ID number, PK
+          - name: campaign_name
+            description: camPGN_name
+          - name: ads_cost
+            description: cost of the campaign
+          - name: impression
+            description: number of impressions
+          - name: click
+            description: number of clicks
+
+      - name: facebook
+        description: facebook campaign for greenweez
+        identifier: raw_gz_facebook
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        freshness:
+          warn_after: { count: 90, period: day }
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
+        columns:
+          - name: date_date
+            description: date of the campaign, PK
+          - name: paid_source
+            description: name of the campaign source
+          - name: campaign_key
+            description: campaign ID number, PK
+          - name: campaign_name
+            description: camPGN_name
+          - name: ads_cost
+            description: cost of the campaign
+          - name: impression
+            description: number of impressions
+          - name: click
+            description: number of clicks
+
       - name: sales
         description: sales data for greenweez
         identifier: raw_gz_sales
@@ -55,7 +156,7 @@ sources:
             description: the shipment cost of the shipment, shipping_fee minus logcost minus ship_cost will give the marginal cost
 
 models:
-  - name: intermediate/int_sales_margin.sql
+  - name: models/intermediate/int_sales_margin.sql
     description: sales margin calculation
     tests:
       - unique:
@@ -76,7 +177,7 @@ models:
       - name: margin
         description: the margin by order
 
-  - name: intermediate/int_orders_margin.sql
+  - name: models/intermediate/int_orders_margin.sql
     description: orders margin calculation
     columns:
       - name: orders_id
@@ -95,7 +196,7 @@ models:
       - name: margin
         description: the margin by product
 
-  - name: intermediate/int_orders_operational.sql
+  - name: models/intermediate/int_orders_operational.sql
     description: operational margin calculation
     columns:
       - name: orders_id
@@ -118,7 +219,7 @@ models:
       - name: logcost
         description: the logistic cost of the shipment
 
-  - name: mart/finance_days.sql
+  - name: models/mart/finance/finance_days.sql
     description: financial KPIs calculated on a daily basis
     columns:
       - name: date_date
